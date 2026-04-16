@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Notification from '../components/Notification';
+import { ChevronDown, Check } from 'lucide-react';
 
 const ContactPage = () => {
   const [loading, setLoading] = useState(false);
   const [notification, setNotification] = useState(null);
+  const [services, setServices] = useState([]);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
   const [formData, setFormData] = useState({
     nombre: '',
     apellido: '',
@@ -15,6 +20,37 @@ const ContactPage = () => {
 
   // URL de tu Web App desplegada en Google Apps Script
   const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxE53T6veiVfxGKtzlvlaSy7ALMr_UwgmJNEalKsKPxYyDzJp1kSckh_nXSpnt3oFEG/exec';
+
+  // Fetch de servicios al cargar la página
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const response = await fetch(SCRIPT_URL);
+        const data = await response.json();
+        if (data.status === 'success' && data.servicios) {
+          setServices(data.servicios);
+        } else {
+          // Fallback en caso de error o datos vacíos
+          setServices(['Sesiones Privadas', 'Yoga Dinámico', 'Conciencia Corporal', 'Otros']);
+        }
+      } catch (error) {
+        console.error('Error fetching services:', error);
+        setServices(['Sesiones Privadas', 'Yoga Dinámico', 'Conciencia Corporal', 'Otros']);
+      }
+    };
+    fetchServices();
+  }, []);
+
+  // Cerrar el dropdown al hacer clic fuera
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -155,20 +191,45 @@ const ContactPage = () => {
               </div>
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-2 relative" ref={dropdownRef}>
               <label className="text-[10px] uppercase tracking-widest font-sans font-bold text-stone-400">Interés Principal</label>
-              <select 
-                required
-                value={formData.interes}
-                className="w-full bg-transparent border-b border-stone-300 py-3 italic focus:outline-none focus:border-[#3A4A3E] transition-colors appearance-none"
-                onChange={(e) => setFormData({...formData, interes: e.target.value})}
+              <div 
+                className="w-full border-b border-stone-300 py-3 italic cursor-pointer flex justify-between items-center group transition-all"
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
               >
-                <option value="">Selecciona una opción</option>
-                <option value="Sesiones Privadas">Sesiones Privadas</option>
-                <option value="Programas de Bienestar">Programas de Bienestar</option>
-                <option value="Retiros y Talleres">Retiros y Talleres</option>
-                <option value="Otros">Otros</option>
-              </select>
+                <span className={`${!formData.interes ? 'text-stone-400' : 'text-[#1C1C1C]'}`}>
+                  {formData.interes || 'Selecciona una opción'}
+                </span>
+                <ChevronDown className={`w-4 h-4 text-stone-400 transition-transform duration-300 ${isDropdownOpen ? 'rotate-180' : ''}`} />
+              </div>
+              
+              {/* Dropdown Menu */}
+              <div 
+                className={`absolute left-0 right-0 top-full mt-2 bg-[#F9F7F4] border border-stone-200 rounded-2xl shadow-xl z-[60] overflow-hidden transition-all duration-300 origin-top transform ${
+                  isDropdownOpen ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0'
+                }`}
+              >
+                <div className="max-h-60 overflow-y-auto font-sans text-sm">
+                  {services.map((service) => (
+                    <div 
+                      key={service}
+                      className={`px-6 py-4 cursor-pointer hover:bg-stone-50 flex justify-between items-center transition-colors ${
+                        formData.interes === service ? 'text-[#3A4A3E] bg-stone-50 font-bold' : 'text-stone-600'
+                      }`}
+                      onClick={() => {
+                        setFormData({...formData, interes: service});
+                        setIsDropdownOpen(false);
+                      }}
+                    >
+                      {service}
+                      {formData.interes === service && <Check className="w-4 h-4" />}
+                    </div>
+                  ))}
+                  {services.length === 0 && (
+                     <div className="px-6 py-4 text-stone-400 italic">Cargando opciones...</div>
+                  )}
+                </div>
+              </div>
             </div>
 
             <div className="space-y-2">
