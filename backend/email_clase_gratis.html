@@ -137,7 +137,7 @@
     <table class="main" width="100%">
       <tr>
         <td class="content">
-          <h1>¡Hola {{nombre}}!</h1>
+          <h1>¡Hola <?= nombre ?>!</h1>
           <p>Gracias por darte este momento para ti. Es un placer compartir contigo esta primera clase virtual.</p>
           
           <div class="quote-section">
@@ -147,8 +147,8 @@
           <p>Aquí tienes tu clase de Yoga para comenzar tu camino:</p>
           
           <div class="video-container">
-            <a href="{{videoUrl}}" target="_blank">
-              <img src="https://img.youtube.com/vi/{{videoId}}/maxresdefault.jpg" alt="Tu Clase de Yoga" class="video-thumbnail">
+            <a href="<?= videoUrl ?>" target="_blank">
+              <img src="https://img.youtube.com/vi/<?= videoId ?>/maxresdefault.jpg" alt="Tu Clase de Yoga" class="video-thumbnail">
               <div class="play-button">
                 <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <circle cx="40" cy="40" r="40" fill="black" fill-opacity="0.6"/>
@@ -165,8 +165,9 @@
         <td class="cta-section">
           <h2 style="font-family: 'EB Garamond', serif; font-size: 28px; font-weight: 400; margin: 0;">¿Te ha gustado la práctica?</h2>
           <p style="color: #444; margin-bottom: 20px;">Si has disfrutado esta clase virtual y quieres probar nuestras clases presenciales en nuestro estudio zen, nos encantaría conocerte.</p>
-          <a href="mailto:{{instructorEmail}}?subject=Me ha gustado la clase virtual y quiero probar la presencial&body=Hola! Soy {{nombre}} {{apellido}}, acabo de hacer la clase virtual y me gustaría tener más información sobre las clases presenciales." class="btn">Quiero probar una clase presencial</a>
+          <a href="mailto:<?= instructorEmail ?>?subject=Me ha gustado la clase virtual y quiero probar la presencial&body=Hola! Soy <?= nombre ?> <?= apellido ?>, acabo de hacer la clase virtual y me gustaría tener más información sobre las clases presenciales." class="btn">Quiero probar una clase presencial</a>
         </td>
+
       </tr>
       <tr>
         <td class="footer">
