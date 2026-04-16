@@ -30,9 +30,9 @@ const HomePage = () => {
       {/* Hero Section */}
       <section className="max-w-7xl mx-auto px-6 pt-2 pb-32 lg:py-24 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start overflow-hidden">
         <div className="order-2 lg:order-1 space-y-8 lg:space-y-10 lg:mt-12">
-          <h1 className="text-5xl md:text-8xl font-light leading-tight italic">
+          <h1 className="text-6xl md:text-8xl font-light leading-tight italic">
             Yoga dinámico <br />
-            <span className="font-normal not-italic text-4xl md:text-7xl">+ Conciencia</span>
+            <span className="text-5xl md:text-7xl">+ Conciencia</span>
           </h1>
           <div className="space-y-10">
             <p className="text-xl text-stone-600 max-w-lg leading-relaxed font-sans">
