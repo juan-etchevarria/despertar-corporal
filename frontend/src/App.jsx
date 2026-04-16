@@ -8,6 +8,7 @@ import PhilosophyPage from './pages/PhilosophyPage';
 import ContactPage from './pages/ContactPage';
 import { FreeClassProvider, useFreeClass } from './context/FreeClassContext';
 import FreeClassModal from './components/FreeClassModal';
+import CookieConsent from './components/CookieConsent';
 
 const AppContent = () => {
   const { isModalOpen, closeModal } = useFreeClass();
@@ -23,10 +24,12 @@ const AppContent = () => {
         </Routes>
       </div>
       <Footer />
+      <CookieConsent />
       <FreeClassModal isOpen={isModalOpen} onClose={closeModal} />
     </div>
   );
 };
+
 
 function App() {
   return (

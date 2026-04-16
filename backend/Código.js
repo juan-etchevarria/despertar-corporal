@@ -107,29 +107,32 @@ function doPost(e) {
  * 4. NOTIFICACIÓN: El motor de aviso por email
  */
 function enviarNotificacion(data) {
-  const asunto = `🧘 Nuevo Lead: ${data.nombre} ${data.apellido} (${data.interes})`;
-  
-  const cuerpoHtml = `
-    <div style="font-family: Arial, sans-serif; border: 1px solid #eee; padding: 20px;">
-      <h2 style="color: #4A90E2;">¡Tienes un nuevo interesado!</h2>
-      <p>Alguien ha completado el formulario en la web de yoga:</p>
-      <hr>
-      <p><strong>Nombre:</strong> ${data.nombre} ${data.apellido}</p>
-      <p><strong>Email:</strong> ${data.email}</p>
-      <p><strong>Teléfono:</strong> ${data.telefono}</p>
-      <p><strong>Clase de interés:</strong> ${data.interes}</p>
-      <p><strong>Mensaje:</strong> ${data.comentarios || 'Sin comentarios'}</p>
-      <hr>
-      <p style="font-size: 0.8em; color: #888;">Este es un mensaje automático generado por tu sistema de captación.</p>
-    </div>
-  `;
-
-  MailApp.sendEmail({
-    to: EMAIL_DESTINO,
-    subject: asunto,
-    htmlBody: cuerpoHtml
-  });
+  try {
+    const template = HtmlService.createTemplateFromFile('email_notificacion_admin');
+    
+    // Pasamos todas las variables al template
+    template.nombre = data.nombre;
+    template.apellido = data.apellido;
+    template.email = data.email;
+    template.telefono = data.telefono;
+    template.interes = data.interes || 'No especificado';
+    template.comentarios = data.comentarios || '';
+    template.origen = data.origen || 'Web Directa';
+    
+    const htmlBody = template.evaluate().getContent();
+    const asunto = `🧘 Nuevo Lead: ${data.nombre} ${data.apellido} (${data.interes})`;
+    
+    MailApp.sendEmail({
+      to: EMAIL_DESTINO,
+      subject: asunto,
+      htmlBody: htmlBody
+    });
+    
+  } catch (error) {
+    console.error("Error enviando notificación admin:", error);
+  }
 }
+
 
 /**
  * 5. ENVÍO DE CLASE GRATIS AL LEAD
