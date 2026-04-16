@@ -1,9 +1,14 @@
 import React from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import Button from '../components/Button';
+import { useFreeClass } from '../context/FreeClassContext';
+import { Play } from 'lucide-react';
+
 
 const HomePage = () => {
-  const navigate = useNavigate();
+   const navigate = useNavigate();
+  const { openModal } = useFreeClass();
+
   const classes = [
     {
       title: "Hatha Yoga",
@@ -53,9 +58,36 @@ const HomePage = () => {
             />
           </div>
         </div>
+       </section>
+      
+      {/* Free Class Section */}
+      <section className="bg-stone-900 py-20 overflow-hidden relative">
+        <div className="absolute top-0 right-0 w-1/2 h-full bg-[#3A4A3E]/10 skew-x-12 translate-x-1/2"></div>
+        <div className="max-w-7xl mx-auto px-6 relative z-10 flex flex-col md:flex-row items-center justify-between gap-12">
+          <div className="space-y-6 max-w-2xl text-center md:text-left">
+            <span className="text-[10px] uppercase tracking-[0.4em] text-stone-400 font-sans font-bold">Regalo de Bienvenida</span>
+            <h2 className="text-4xl md:text-6xl text-[#F9F7F4] font-light leading-tight">
+              Regálate una <span className="italic">pausa consciente</span>.
+            </h2>
+            <p className="text-lg text-stone-400 font-sans leading-relaxed">
+              Obtén acceso a una clase virtual gratuita grabada exclusivamente para ti. Una introducción perfecta a nuestro método desde la comodidad de tu hogar.
+            </p>
+          </div>
+          <button 
+            onClick={openModal}
+            className="group relative flex items-center justify-center bg-[#EBD8B8] hover:bg-[#E2CCAA] text-stone-900 w-48 h-48 rounded-full transition-all hover:scale-105 active:scale-95 shadow-xl hover:shadow-[#EBD8B8]/20"
+          >
+            <div className="absolute inset-0 border border-stone-900/10 rounded-full animate-ping opacity-20 group-hover:block hidden"></div>
+            <div className="flex flex-col items-center gap-2">
+              <Play className="fill-stone-900" size={32} />
+              <span className="text-[10px] uppercase font-bold tracking-widest text-center px-4 leading-tight">Obtener Clase Gratis</span>
+            </div>
+          </button>
+        </div>
       </section>
 
       {/* Quote Section */}
+
       <section className="bg-[#EAE4DD] py-32 px-6">
         <div className="max-w-4xl mx-auto text-center space-y-8">
           <span className="text-xs uppercase tracking-[0.3em] text-stone-500 font-sans font-semibold">Nuestra Esencia</span>

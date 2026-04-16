@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, PlayCircle } from 'lucide-react';
+import { useFreeClass } from '../context/FreeClassContext';
+
 
 const Navbar = () => {
-  const location = useLocation();
+   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
+  const { openModal } = useFreeClass();
+
   
   const navLinks = [
     { name: 'Inicio', path: '/' },
@@ -43,10 +47,18 @@ const Navbar = () => {
           </div>
           
           {/* Action Button & Menu Toggle */}
-          <div className="flex items-center gap-6">
+           <div className="flex items-center gap-4">
+            <button 
+              onClick={openModal}
+              className="hidden md:flex items-center gap-2 bg-[#EBD8B8] text-stone-800 px-6 py-3 rounded-full text-[10px] font-bold tracking-[0.2em] hover:bg-[#E2CCAA] transition-all hover:shadow-md active:scale-95 font-sans"
+            >
+              <PlayCircle size={14} />
+              CLASE GRATIS
+            </button>
             <Link to="/contacto#contacto-formulario" className="hidden md:block bg-[#3A4A3E] text-stone-100 px-8 py-3 rounded-full text-[10px] font-bold tracking-[0.2em] hover:bg-[#2A3A2E] transition-all hover:shadow-lg active:scale-95 font-sans">
               CONTACTAR
             </Link>
+
             
             <button 
               className="lg:hidden p-2 text-stone-800 focus:outline-none relative w-10 h-10 flex items-center justify-center"
@@ -86,16 +98,27 @@ const Navbar = () => {
             </Link>
           ))}
           
+             <button 
+              onClick={() => {
+                setIsOpen(false);
+                openModal();
+              }}
+              className="bg-[#EBD8B8] text-stone-800 px-12 py-5 rounded-full text-[10px] font-bold tracking-[0.3em] font-sans mt-8 transition-all animate-pulse"
+            >
+              CLASE VIRTUAL GRATIS
+            </button>
+
             <Link 
               to="/contacto#contacto-formulario" 
               onClick={() => setIsOpen(false)} 
-              className={`bg-[#3A4A3E] text-white px-12 py-5 rounded-full text-[10px] font-bold tracking-[0.3em] font-sans mt-8 transition-all duration-500 transform ${
+              className={`text-[#3A4A3E] px-12 py-5 rounded-full text-[10px] font-bold tracking-[0.3em] font-sans transition-all duration-500 transform ${
                 isOpen ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
               }`}
               style={{ transitionDelay: '300ms' }}
             >
               CONTACTANOS
             </Link>
+
         </div>
 
         <div className="absolute bottom-12 text-stone-400 text-[10px] tracking-[0.4em] font-sans uppercase">

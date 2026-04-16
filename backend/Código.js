@@ -5,6 +5,8 @@ const SPREADSHEET_ID = '1Sp1UJAXQOykQ3EpHzrwWcrhq0xXdh6kIAK0zm-4wxNE';
 const SHEET_LEADS = 'Leads';
 const SHEET_CONFIG = 'Configuracion';
 const EMAIL_DESTINO = 'tu-correo@gmail.com'; // <-- CAMBIA ESTO POR EL EMAIL DE LA INSTRUCTORA
+const YOUTUBE_VIDEO_ID = 'dQw4w9WgXcQ'; // <-- COLOQUEN AQUÍ EL ID DEL VIDEO (lo que va después de v=)
+
 
 /**
  * 1. INICIALIZADOR: Crea la estructura de la base de datos
@@ -85,6 +87,12 @@ function doPost(e) {
     ]);
 
     enviarNotificacion(data);
+    
+    // Si el origen es 'Clase Gratis', enviamos el mail con el video al usuario
+    if (data.origen === 'Clase Gratis') {
+      enviarClaseGratis(data);
+    }
+
 
     return ContentService.createTextOutput(JSON.stringify({'result': 'success'}))
       .setMimeType(ContentService.MimeType.JSON);
@@ -121,4 +129,31 @@ function enviarNotificacion(data) {
     subject: asunto,
     htmlBody: cuerpoHtml
   });
+}
+
+/**
+ * 5. ENVÍO DE CLASE GRATIS AL LEAD
+ */
+function enviarClaseGratis(data) {
+  try {
+    const template = HtmlService.createTemplateFromFile('email_clase_gratis');
+    
+    // Pasamos las variables al template
+    template.nombre = data.nombre;
+    template.apellido = data.apellido;
+    template.videoId = YOUTUBE_VIDEO_ID;
+    template.videoUrl = `https://www.youtube.com/watch?v=${YOUTUBE_VIDEO_ID}`;
+    template.instructorEmail = EMAIL_DESTINO;
+    
+    const htmlBody = template.evaluate().getContent();
+    
+    MailApp.sendEmail({
+      to: data.email,
+      subject: `🎁 Aquí tienes tu clase gratis - Despertar Corporal`,
+      htmlBody: htmlBody
+    });
+    
+  } catch (error) {
+    console.error("Error enviando clase gratis:", error);
+  }
 }
