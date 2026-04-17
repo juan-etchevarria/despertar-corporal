@@ -1,0 +1,22 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Circular thin copper border -->
+  <circle cx="100" cy="100" r="95" stroke="#B88A6E" stroke-width="1.5" />
+  
+  <!-- Yoga figure with lotus (simplified line art) -->
+  <path d="M100 55 C105 55 108 58 108 63 C108 68 105 71 100 71 C95 71 92 68 92 63 C92 58 95 55 100 55 Z" stroke="#3A4A3E" stroke-width="1.2" fill="none"/>
+  <path d="M100 71 L100 110" stroke="#3A4A3E" stroke-width="1.2" />
+  <path d="M100 80 Q115 80 125 95 M100 80 Q85 80 75 95" stroke="#3A4A3E" stroke-width="1.2" fill="none" />
+  <path d="M75 95 Q100 145 125 95" stroke="#3A4A3E" stroke-width="1.2" fill="none" />
+  <path d="M85 130 C65 130 55 145 100 145 C145 145 135 130 115 130" stroke="#3A4A3E" stroke-width="1.2" fill="none" />
+  
+  <!-- "DESPERTAR CORPORAL" curved text -->
+  <defs>
+    <path id="textPath" d="M35 100 A65 65 0 0 1 165 100" />
+  </defs>
+  <text fill="#3A4A3E" font-family="serif" font-size="14" letter-spacing="4">
+    <textPath href="#textPath" startOffset="50%" text-anchor="middle">DESPERTAR CORPORAL</textPath>
+  </text>
+  
+  <!-- "by Noe" script -->
+  <text x="100" y="170" fill="#B88A6E" font-family="cursive, serif" font-size="18" text-anchor="middle" font-style="italic">by Noe</text>
+</svg>
