@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, PlayCircle } from 'lucide-react';
 import { useFreeClass } from '../context/FreeClassContext';
-import logo from '../assets/logo.svg';
+import logo from '../assets/logo.png';
 
 const Navbar = () => {
    const location = useLocation();
