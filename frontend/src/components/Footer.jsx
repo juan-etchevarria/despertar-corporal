@@ -14,7 +14,7 @@ const Footer = () => {
           <a href="#" className="hover:text-stone-900 transition-colors">YouTube</a>
           <a href="#" className="hover:text-stone-900 transition-colors">WhatsApp</a>
         </div>
-        <div>© 2024 EL ARTE DEL MOVIMIENTO CONSCIENTE.</div>
+        <div>© 2026 EL ARTE DEL MOVIMIENTO CONSCIENTE.</div>
       </div>
     </footer>
   );
