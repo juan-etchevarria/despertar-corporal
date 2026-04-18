@@ -139,7 +139,7 @@ const ContactPage = () => {
         </div>
 
         {/* Right Column: Form Card */}
-        <div id="contacto-formulario" className="bg-[#F3EFEA] p-8 md:p-16 rounded-[3rem] shadow-sm border border-stone-200/50">
+        <div id="contacto-formulario" className="bg-[#F3EFEA] p-8 md:p-16 rounded-[3rem] shadow-sm border border-stone-200/50 scroll-mt-24 md:scroll-mt-32">
           <form onSubmit={handleSubmit} noValidate className="space-y-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="space-y-2">
