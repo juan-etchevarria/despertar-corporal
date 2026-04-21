@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import Button from '../components/Button';
 import { useFreeClass } from '../context/FreeClassContext';
 import { Play } from 'lucide-react';
+import logo from '../assets/logo.png';
 
 
 const HomePage = () => {
@@ -73,16 +74,39 @@ const HomePage = () => {
               Obtén acceso a una clase virtual gratuita grabada exclusivamente para ti. Una introducción perfecta a nuestro método desde la comodidad de tu hogar.
             </p>
           </div>
-          <button 
-            onClick={openModal}
-            className="group relative flex items-center justify-center bg-[#EBD8B8] hover:bg-[#E2CCAA] text-stone-900 w-48 h-48 rounded-full transition-all hover:scale-105 active:scale-95 shadow-xl hover:shadow-[#EBD8B8]/20"
-          >
-            <div className="absolute inset-0 border border-stone-900/10 rounded-full animate-ping opacity-20 group-hover:block hidden"></div>
-            <div className="flex flex-col items-center gap-2">
-              <Play className="fill-stone-900" size={32} />
-              <span className="text-[10px] uppercase font-bold tracking-widest text-center px-4 leading-tight">Obtener Clase Gratis</span>
-            </div>
-          </button>
+          <div className="relative group">
+            {/* Premium Glow */}
+            <div className="absolute inset-0 bg-[#EBD8B8] blur-3xl opacity-10 group-hover:opacity-30 transition-opacity rounded-full"></div>
+            
+            <button 
+              onClick={openModal}
+              className="relative w-72 h-72 rounded-full overflow-hidden flex flex-col items-center justify-center transition-all duration-700 hover:scale-105 active:scale-95 group border border-[#EBD8B8]/20"
+            >
+              {/* Logo Background with soft overlay */}
+              <div className="absolute inset-0 z-0">
+                <img 
+                  src={logo} 
+                  alt="Lotus" 
+                  className="w-full h-full object-contain p-4 opacity-10 group-hover:opacity-20 transition-all duration-700 group-hover:rotate-12 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-[#EBD8B8]/90 group-hover:bg-[#EBD8B8]/80 transition-colors duration-500"></div>
+              </div>
+
+              {/* High-quality content */}
+              <div className="relative z-10 flex flex-col items-center gap-4 text-stone-900">
+                <div className="w-16 h-16 bg-white/30 backdrop-blur-md rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-500">
+                  <Play className="fill-stone-900 text-stone-900 translate-x-1" size={28} />
+                </div>
+                <div className="space-y-1 text-center">
+                  <span className="text-[12px] md:text-[13px] uppercase font-bold tracking-[0.3em] block">Obtener</span>
+                  <span className="text-[14px] md:text-[15px] italic font-serif">Clase Gratis</span>
+                </div>
+              </div>
+
+              {/* Decorative radial highlight */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+            </button>
+          </div>
         </div>
       </section>
 
